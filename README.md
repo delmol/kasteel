@@ -1,4 +1,4 @@
-# kasteel
+# Kasteel
 
 Note: **This respository is currently by no means stable.** I am still in the process of active development and this respository can in no way be classed as stable. At a later date this repository will become the official stable repository.
 

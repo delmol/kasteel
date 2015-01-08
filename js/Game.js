@@ -9,16 +9,16 @@ TopDownGame.Game.prototype = {
 
     //the first parameter is the tileset name as specified in Tiled, the second is the key to the asset
     this.map.addTilesetImage('tiles', 'gameTiles');
-	
+
 	Phaser.Canvas.setSmoothingEnabled(this.game.context, false);
 	this.game.stage.smoothed = false;
 
     //create layer
     this.backgroundlayer = this.map.createLayer('backgroundLayer');
     this.blockedLayer = this.map.createLayer('blockedLayer');
-	
+
 	this.stage.backgroundColor = '#000000';
-	
+
 	this.game.time.desiredFps = 30;
 
     //collision on blockedLayer
@@ -28,7 +28,7 @@ TopDownGame.Game.prototype = {
     this.backgroundlayer.resizeWorld();
 
     this.createItems();
-    this.createDoors();   
+    this.createDoors();
 	this.createNotes();
 
     //create player
@@ -53,7 +53,7 @@ TopDownGame.Game.prototype = {
     //create items
     this.items = this.game.add.group();
     this.items.enableBody = true;
-    var item;    
+    var item;
     result = this.findObjectsByType('item', this.map, 'objectsLayer');
     result.forEach(function(element){
       this.createFromTiledObject(element, this.items);
@@ -70,8 +70,8 @@ TopDownGame.Game.prototype = {
     }, this);
   },
   createNotes: function() {
-    //create doors
-	
+    //create notes
+
     this.notes = this.game.add.group();
     this.notes.enableBody = true;
 	var note;
@@ -87,12 +87,9 @@ TopDownGame.Game.prototype = {
     var result = new Array();
     map.objects[layer].forEach(function(element){
       if(element.properties.type === type) {
-        //Phaser uses top left, Tiled bottom left so we have to adjust
-        //also keep in mind that the cup images are a bit smaller than the tile which is 16x16
-        //so they might not be placed in the exact position as in Tiled
         element.y -= map.tileHeight;
         result.push(element);
-      }      
+      }
     });
     return result;
   },
@@ -115,35 +112,34 @@ TopDownGame.Game.prototype = {
     //player movement
     this.player.body.velocity.y = 0;
     this.player.body.velocity.x = 0;
-	
+
 	//camera movement
 	this.cameraPos.x += (this.player.x - this.cameraPos.x) * this.cameraLerp; // smoothly adjust the x position
 	this.cameraPos.y += (this.player.y - this.cameraPos.y) * this.cameraLerp; // smoothly adjust the y position
 	this.game.camera.focusOnXY(this.cameraPos.x, this.cameraPos.y);
-	
+
 
     if(this.upButton.isDown) {
-      this.player.y -= 2;
+      this.player.body.velocity.y -= 50;
     }
     else if(this.downButton.isDown) {
       this.player.body.velocity.y += 50;
     }
     if(this.leftButton.isDown) {
-      this.player.x -= 2;
+      this.player.body.velocity.x -= 50;
 	  this.player.flipped = true;
     }
     else if(this.rightButton.isDown) {
-		this.player.x += 2;
+		this.player.body.velocity.x += 50;
     }
   },
   collect: function(player, collectable) {
-    console.log('yummy!');
+    console.log('collected');
 
     //remove sprite
     collectable.destroy();
   },
   enterDoor: function(player, door) {
-  console.log('khfghjf');
     console.log('entering door that will take you to '+door.targetTilemap+' on x:'+door.targetX+' and y:'+door.targetY);
   },
   readNote: function(player, note) {
