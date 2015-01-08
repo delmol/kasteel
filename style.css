@@ -1,3 +1,6 @@
+/* CSS to ensure pixel art scales up nice and crisp, without blurring.
+   We also set this in game.js 
+   Note: This is not supported in all browsers */
 * {
  image-rendering:optimizeSpeed; /* Legal fallback */
  image-rendering:-moz-crisp-edges; /* Firefox */
@@ -7,6 +10,7 @@
  image-rendering: optimize-contrast; /* Possible future browsers. */
  -ms-interpolation-mode:bicubic; /* IE8+ */
 }
+/* Set no padding or margin, set background colour for the page */
 body {
 padding: 0px;
 margin: 0px;
