@@ -1,0 +1,45 @@
+[Pickup Packs]
+1=Health pack (restore 100% health)
+2=Small health pack (restore 20% health)
+3=
+4=
+5=
+[Potions]
+6=Speed (increase player speed by x1.75)
+7=Gold (increase gold drops by x2.5)
+8=
+9=
+[Collectables]
+10=Collectable
+11=Collectable
+12=Collectable
+13=Collectable
+14=Collectable
+15=Collectable
+16=Collectable
+17=Collectable
+18=Collectable
+19=Collectable
+20=Collectable
+21=Collectable
+22=Collectable
+23=Collectable
+24=Collectable
+25=Collectable
+26=Collectable
+27=Collectable
+28=Collectable
+29=Collectable
+30=Collectable
+[Secret Specials]
+31
+32
+33
+34
+35
+[Useless]
+36
+37
+38
+39
+40

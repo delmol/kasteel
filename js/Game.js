@@ -18,6 +18,8 @@ TopDownGame.Game.prototype = {
     this.blockedLayer = this.map.createLayer('blockedLayer');
 
 	this.stage.backgroundColor = '#000000';
+	
+	this.formerMouse=-1; // Phaser.Mouse.NO_BUTTON
 
 	this.game.time.desiredFps = 30;
 
@@ -29,12 +31,22 @@ TopDownGame.Game.prototype = {
 
     this.createItems();
     this.createDoors();
+	this.createkeyDoors();
 	this.createNotes();
+	
+	//player shoot
+	this.bullets = this.game.add.group();
+    this.bullets.enableBody = true;
+    this.bullets.physicsBodyType = Phaser.Physics.ARCADE;
+    this.bullets.createMultiple(30, 'browndoor');
+    this.bullets.setAll('anchor.x', 0.5);
+	this.bulletTime = 1;
 
     //create player
     var result = this.findObjectsByType('playerStart', this.map, 'objectsLayer')
     this.player = this.game.add.sprite(result[0].x, result[0].y, 'player');
     this.game.physics.arcade.enable(this.player);
+	var playerHealth = 10; 
 
     //the camera will follow the player in the world
     //this.game.camera.follow(this.player);
@@ -49,6 +61,7 @@ TopDownGame.Game.prototype = {
 	this.rightButton = this.game.input.keyboard.addKey(Phaser.Keyboard.D);
 
   },
+  
   createItems: function() {
     //create items
     this.items = this.game.add.group();
@@ -59,6 +72,7 @@ TopDownGame.Game.prototype = {
       this.createFromTiledObject(element, this.items);
     }, this);
   },
+  
   createDoors: function() {
     //create doors
     this.doors = this.game.add.group();
@@ -69,9 +83,22 @@ TopDownGame.Game.prototype = {
       this.createFromTiledObject(element, this.doors);
     }, this);
   },
+  
+  createkeyDoors: function() {
+    //create doors
+    this.keyDoors = this.game.add.group();
+	this.keyDoors.enableBody = true;
+	this.keyDoors.physicsBodyType = Phaser.Physics.ARCADE;
+	
+    result = this.findObjectsByType('switchdoor', this.map, 'objectsLayer');
+
+    result.forEach(function(element){
+      this.createFromTiledObject(element, this.keyDoors);
+    }, this);
+  },
+  
   createNotes: function() {
     //create notes
-
     this.notes = this.game.add.group();
     this.notes.enableBody = true;
 	var note;
@@ -93,21 +120,30 @@ TopDownGame.Game.prototype = {
     });
     return result;
   },
+  
   //create a sprite from an object
   createFromTiledObject: function(element, group) {
     var sprite = group.create(element.x, element.y, element.properties.sprite);
+	
+	if(group == this.keyDoors){
+		sprite.body.immovable = true;
+	}
 
       //copy all properties to the sprite
       Object.keys(element.properties).forEach(function(key){
         sprite[key] = element.properties[key];
       });
   },
+  
   update: function() {
     //collision
     this.game.physics.arcade.collide(this.player, this.blockedLayer);
     this.game.physics.arcade.overlap(this.player, this.items, this.collect, null, this);
     this.game.physics.arcade.overlap(this.player, this.doors, this.enterDoor, null, this);
 	this.game.physics.arcade.overlap(this.player, this.notes, this.readNote, null, this);
+	this.game.physics.arcade.collide(this.player, this.keyDoors);
+	this.game.physics.arcade.collide(this.keyDoors, this.blockedLayer);
+	this.game.physics.arcade.collide(this.bullet, this.blockedLayer, this.bulletCollide);
 
     //player movement
     this.player.body.velocity.y = 0;
@@ -132,16 +168,48 @@ TopDownGame.Game.prototype = {
     else if(this.rightButton.isDown) {
 		this.player.body.velocity.x += 50;
     }
+	
+	if (this.input.mouse.button==0){
+         if (this.formerMouse==-1) {
+
+        } else {
+           this.shoot();
+        }
+     }
+     this.formerMouse=this.input.mouse.button;
+
   },
+  
+  shoot: function(){
+  //  To avoid them being allowed to fire too fast we set a time limit
+    if (this.game.time.now > this.bulletTime)
+    {
+        //  Grab the first bullet we can from the pool
+        this.bullet = this.bullets.getFirstExists(false);
+
+        if (this.bullet)
+        {
+            //  And fire it
+            this.bullet.reset(this.player.x, this.player.y + 8);
+			this.bullet.rotation = this.game.physics.arcade.moveToPointer(this.bullet, 100, this.input.activePointer)
+            this.bulletTime = this.game.time.now + 1;
+        }
+    }
+  },
+  
+  bulletCollide: function(bullet, blockedLayer){
+	bullet.kill();
+  },
+  
   collect: function(player, collectable) {
     console.log('collected');
-
-    //remove sprite
     collectable.destroy();
   },
+  
   enterDoor: function(player, door) {
     console.log('entering door that will take you to '+door.targetTilemap+' on x:'+door.targetX+' and y:'+door.targetY);
   },
+  
   readNote: function(player, note) {
     console.log(note.text);
   },

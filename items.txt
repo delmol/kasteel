@@ -1,0 +1,4 @@
+score
+value (gold)
+item id
+health
