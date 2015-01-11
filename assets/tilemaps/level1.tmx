@@ -5,12 +5,12 @@
  </tileset>
  <layer name="backgroundLayer" width="20" height="20">
   <data encoding="base64" compression="zlib">
-   eJxTYWBgUEHCDkhsWyhthiRmjoYVgVgBiOWhGKSGG4h50LAJENsj8VWwqIGJKyGZiUsdNn3YxC2htA3UrQwUmoeuZrCbB/M7MWqR452RARH/IGyB5D5i3AgKdyskvjUWNcS4i1RMbPjhwsYMqIAW7iMHkGoWqe5AFyNWDy38OgqGDgAAOB4RwA==
+   eJxTYWBgUEHCDkhsWyhthiRmjoYVgVgBiOWhGKSGG4h50LAJENsj8VWwqIGJKyGZiUsdNn3YxC2htA3UrQwUmkeqmsFgng2RapHjnZEBEf8gbEGi+0DhboXEt8aihhh3jeJRPIoHLwYASVQZJQ==
   </data>
  </layer>
  <layer name="blockedLayer" width="20" height="20">
   <data encoding="base64" compression="zlib">
-   eJxTYWBgUEHCDGh8dDFzNIwOVLCIYQMDqQ6EHYDYjAG/36llJ7FqB9o8QmFBinmjADdQIANT0/xRMAqoBQAnKAjf
+   eJxTYWBgUEHCDGh8dDFzNIwOVLCIYQMDqQ6EHYDYjAG/34k1i1ruG2jzCIUFKeYhm0sN99HKPFsqm0eM+yjBtljEqAVGzRsZ5lETAwB4nBAl
   </data>
  </layer>
  <objectgroup name="objectsLayer" width="20" height="20">
@@ -19,32 +19,18 @@
     <property name="type" value="playerStart"/>
    </properties>
   </object>
-  <object gid="54" x="288" y="32">
-   <properties>
-    <property name="sprite" value="browndoor"/>
-    <property name="text" value="Some text note"/>
-    <property name="type" value="note"/>
-   </properties>
-  </object>
   <object gid="54" x="288" y="64">
    <properties>
-    <property name="sprite" value="browndoor"/>
+    <property name="sprite" value="blank"/>
     <property name="text" value="this is note"/>
     <property name="type" value="note"/>
    </properties>
   </object>
   <object gid="61" x="224" y="128"/>
-  <object gid="54" x="288" y="64">
-   <properties>
-    <property name="sprite" value="browndoor"/>
-    <property name="text" value="this is note"/>
-    <property name="type" value="note"/>
-   </properties>
-  </object>
   <object gid="54" x="128" y="64"/>
   <object gid="54" x="128" y="64">
    <properties>
-    <property name="sprite" value="browndoor"/>
+    <property name="sprite" value="blank"/>
     <property name="text" value="some paintings will hide secret passageways."/>
     <property name="type" value="note"/>
    </properties>
