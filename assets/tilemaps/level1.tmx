@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <map version="1.0" orientation="orthogonal" width="20" height="20" tilewidth="32" tileheight="32">
  <tileset firstgid="1" name="tiles" tilewidth="32" tileheight="32">
-  <image source="../images/tiles.png" width="320" height="320"/>
+  <image source="../../../../2d-topdown/assets/images/tiles.png" width="320" height="320"/>
  </tileset>
  <layer name="backgroundLayer" width="20" height="20">
   <data encoding="base64" compression="zlib">
@@ -10,7 +10,7 @@
  </layer>
  <layer name="blockedLayer" width="20" height="20">
   <data encoding="base64" compression="zlib">
-   eJxjYBgFo2AU0BMokIGpaf4oGAXUAgDJGgKh
+   eJxTYWBgUEHCDGh8dDFzNIwOVLCIYQMDqQ6EHYDYjAG/36llJ7FqB9o8QmFBinmjADdQIANT0/xRMAqoBQAnKAjf
   </data>
  </layer>
  <objectgroup name="objectsLayer" width="20" height="20">
@@ -26,13 +26,27 @@
     <property name="type" value="note"/>
    </properties>
   </object>
-  <object gid="61" x="224" y="32">
+  <object gid="54" x="288" y="64">
    <properties>
     <property name="sprite" value="browndoor"/>
-    <property name="targetTilemap" value="grgrgrg"/>
-    <property name="targetX" value="44"/>
-    <property name="targetY" value="6"/>
-    <property name="type" value="item"/>
+    <property name="text" value="this is note"/>
+    <property name="type" value="note"/>
+   </properties>
+  </object>
+  <object gid="61" x="224" y="128"/>
+  <object gid="54" x="288" y="64">
+   <properties>
+    <property name="sprite" value="browndoor"/>
+    <property name="text" value="this is note"/>
+    <property name="type" value="note"/>
+   </properties>
+  </object>
+  <object gid="54" x="128" y="64"/>
+  <object gid="54" x="128" y="64">
+   <properties>
+    <property name="sprite" value="browndoor"/>
+    <property name="text" value="some paintings will hide secret passageways."/>
+    <property name="type" value="note"/>
    </properties>
   </object>
  </objectgroup>

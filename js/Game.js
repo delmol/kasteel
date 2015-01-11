@@ -38,7 +38,7 @@ TopDownGame.Game.prototype = {
 	this.bullets = this.game.add.group();
     this.bullets.enableBody = true;
     this.bullets.physicsBodyType = Phaser.Physics.ARCADE;
-    this.bullets.createMultiple(30, 'browndoor');
+    this.bullets.createMultiple(30, 'spell1');
     this.bullets.setAll('anchor.x', 0.5);
 	this.bulletTime = 1;
 
@@ -185,14 +185,14 @@ TopDownGame.Game.prototype = {
     if (this.game.time.now > this.bulletTime)
     {
         //  Grab the first bullet we can from the pool
-        this.bullet = this.bullets.getFirstExists(false);
+		this.bullet = this.bullets.getFirstExists(false);
 
         if (this.bullet)
         {
             //  And fire it
-            this.bullet.reset(this.player.x, this.player.y + 8);
+            this.bullet.reset(this.player.x + 5, this.player.y + 8);
 			this.bullet.rotation = this.game.physics.arcade.moveToPointer(this.bullet, 100, this.input.activePointer)
-            this.bulletTime = this.game.time.now + 1;
+            this.bulletTime = this.game.time.now + 700;
         }
     }
   },
@@ -211,6 +211,10 @@ TopDownGame.Game.prototype = {
   },
   
   readNote: function(player, note) {
-    console.log(note.text);
+    var style = { font: "10px Courier New", fill: "#ffffff", wordWrap: true, wordWrapWidth: 128, align: "center" };
+	this.noteText = this.game.add.text(0, 0, note.text, style);
+    this.noteText.anchor.set(0.5);
+	this.noteText.x = note.x;
+	this.noteText.y = note.y;
   },
 };
